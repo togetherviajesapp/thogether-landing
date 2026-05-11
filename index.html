@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Together — Organizá tus viajes grupales sin el caos"/>
+  <title>Together ✈️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #080D0A;
+      --card: #0F1A14;
+      --card2: #162318;
+      --border: #1E3228;
+      --accent: #059669;
+      --accentL: #10B981;
+      --green: #34D399;
+      --muted: #5A7A68;
+      --text: #f0f0f5;
+      --text2: #a8c4b4;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .syne { font-family: 'Syne', sans-serif; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5%;
+      background: rgba(8,13,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(30,50,40,0.6);
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Syne', sans-serif; font-weight: 900; font-size: 22px;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      border: none; border-radius: 10px;
+      padding: 10px 22px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--accentL); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(5,150,105,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(5,150,105,0.08) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0; opacity: 0.04;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(5,150,105,0.12);
+      border: 1px solid rgba(52,211,153,0.25);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: 13px; font-weight: 600;
+      color: var(--green);
+      margin-bottom: 32px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900;
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: 1.08;
+      color: var(--text);
+      margin-bottom: 24px;
+      transition: opacity 0.25s;
+    }
+    .hero h1 .highlight { color: var(--green); }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--text2);
+      max-width: 560px;
+      margin: 0 auto 48px;
+      line-height: 1.6;
+    }
+    .hero-ctas {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      border: none; border-radius: 12px;
+      padding: 14px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(5,150,105,0.3);
+    }
+    .btn-primary:hover { background: var(--accentL); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(5,150,105,0.4); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--muted); background: rgba(255,255,255,0.04); transform: translateY(-1px); }
+
+    /* TAGLINE SELECTOR — para elegir la frase */
+    .tagline-selector {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .tagline-selector-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .tagline-options {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .tagline-opt {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s;
+      font-size: 15px;
+      color: var(--text2);
+    }
+    .tagline-opt:hover { background: rgba(5,150,105,0.07); color: var(--text); }
+    .tagline-opt.active {
+      border-color: var(--accent);
+      background: rgba(5,150,105,0.1);
+      color: var(--text);
+    }
+    .tagline-radio {
+      width: 16px; height: 16px; flex-shrink: 0;
+      border-radius: 50%; border: 2px solid var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.18s;
+    }
+    .tagline-opt.active .tagline-radio { border-color: var(--accent); }
+    .tagline-radio-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      opacity: 0; transition: opacity 0.18s;
+    }
+    .tagline-opt.active .tagline-radio-dot { opacity: 1; }
+
+    /* FEATURES */
+    .section { padding: 96px 5%; }
+    .section-label {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+      text-align: center;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.15; text-align: center;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--text2); font-size: 17px;
+      text-align: center; max-width: 520px;
+      margin: 0 auto 64px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      max-width: 1080px; margin: 0 auto;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: var(--muted); transform: translateY(-2px); }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(5,150,105,0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .feature-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .feature-card p { color: var(--text2); font-size: 15px; line-height: 1.6; }
+
+    /* PROBLEM */
+    .problem-section {
+      padding: 80px 5%;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--card) 50%, var(--bg) 100%);
+    }
+    .problem-inner {
+      max-width: 760px; margin: 0 auto; text-align: center;
+    }
+    .problem-emoji {
+      font-size: 48px; margin-bottom: 24px; display: block;
+    }
+    .problem-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: clamp(24px, 3.5vw, 38px);
+      margin-bottom: 20px; line-height: 1.2;
+    }
+    .problem-text { color: var(--text2); font-size: 17px; line-height: 1.7; }
+    .pain-list {
+      display: flex; flex-direction: column; gap: 14px;
+      margin: 36px 0; text-align: left;
+    }
+    .pain-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: rgba(255,107,107,0.06);
+      border: 1px solid rgba(255,107,107,0.15);
+      border-radius: 12px; padding: 14px 18px;
+    }
+    .pain-x { color: #ff6b6b; font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .pain-item span { color: var(--text2); font-size: 15px; }
+
+    /* EMAIL */
+    .email-section {
+      padding: 96px 5%;
+      text-align: center;
+    }
+    .email-card {
+      max-width: 560px; margin: 0 auto;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px 40px;
+      position: relative; overflow: hidden;
+    }
+    .email-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .email-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 26px;
+      margin-bottom: 12px;
+    }
+    .email-sub { color: var(--text2); font-size: 16px; margin-bottom: 28px; }
+    .email-form {
+      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+    }
+    .email-input {
+      flex: 1; min-width: 220px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; color: var(--text);
+      outline: none; transition: border-color 0.2s;
+    }
+    .email-input::placeholder { color: var(--muted); }
+    .email-input:focus { border-color: var(--accent); }
+    .email-btn {
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 10px;
+      padding: 13px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .email-btn:hover { background: var(--accentL); }
+    .email-note { color: var(--muted); font-size: 13px; margin-top: 14px; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 18px;
+      color: var(--text);
+    }
+    .footer-text { color: var(--muted); font-size: 13px; }
+
+    /* SVG ICON HELPERS */
+    svg { display: block; }
+
+    @media (max-width: 600px) {
+      nav { padding: 14px 4%; }
+      .hero { padding: 100px 4% 64px; }
+      .email-card { padding: 32px 24px; }
+      footer { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://together-app-sandy.vercel.app/" target="_blank" rel="noopener" class="logo">
+    <svg width="32" height="32" viewBox="0 0 100 100" fill="none"><path d="M 50 95 C 50 95 8 60 8 38 A 42 42 0 1 1 92 38 C 92 60 50 95 50 95 Z" fill="#34D399"/><line x1="19.5" y1="25.5" x2="80.5" y2="25.5" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><line x1="19.5" y1="25.5" x2="50" y2="68" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><line x1="80.5" y1="25.5" x2="50" y2="68" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><rect x="19.5" y="22" width="61" height="10.5" rx="5.2" fill="#fff"/><rect x="44.8" y="22" width="10.4" height="46" rx="5.2" fill="#fff"/><circle cx="19.5" cy="25.5" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="19.5" cy="25.5" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="19.5" cy="25.5" r="6.5" fill="#10B981"/><circle cx="80.5" cy="25.5" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="80.5" cy="25.5" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="80.5" cy="25.5" r="6.5" fill="#10B981"/><circle cx="50" cy="68" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="50" cy="68" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="50" cy="68" r="6.5" fill="#10B981"/></svg>
+    Together
+  </a>
+  <a href="https://together-app-sandy.vercel.app/" target="_blank" rel="noopener" class="nav-cta">Instalar app</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Beta abierta · Gratis
+    </div>
+
+    <h1 id="hero-headline">
+      <span style="display:inline-block;vertical-align:middle;margin-right:2px;margin-bottom:12px"><svg width="1.6em" height="1.6em" viewBox="0 0 100 100" fill="none"><path d="M 50 95 C 50 95 8 60 8 38 A 42 42 0 1 1 92 38 C 92 60 50 95 50 95 Z" fill="#34D399"/><line x1="19.5" y1="25.5" x2="80.5" y2="25.5" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><line x1="19.5" y1="25.5" x2="50" y2="68" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><line x1="80.5" y1="25.5" x2="50" y2="68" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><rect x="19.5" y="22" width="61" height="10.5" rx="5.2" fill="#fff"/><rect x="44.8" y="22" width="10.4" height="46" rx="5.2" fill="#fff"/><circle cx="19.5" cy="25.5" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="19.5" cy="25.5" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="19.5" cy="25.5" r="6.5" fill="#10B981"/><circle cx="80.5" cy="25.5" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="80.5" cy="25.5" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="80.5" cy="25.5" r="6.5" fill="#10B981"/><circle cx="50" cy="68" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="50" cy="68" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="50" cy="68" r="6.5" fill="#10B981"/></svg></span>odo tu grupo.<br><span class="highlight">Un solo lugar.</span>
+    </h1>
+
+    <p class="hero-sub" id="hero-sub">
+      Together reúne itinerario, gastos, votaciones y tareas en un solo lugar para que tu grupo viaje sin el caos habitual.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="https://together-app-sandy.vercel.app/" target="_blank" rel="noopener" class="btn-primary" id="install-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Instalar gratis
+      </a>
+      <button class="btn-secondary" onclick="document.getElementById('avisar').scrollIntoView({behavior:'smooth'})">Sumarme al lanzamiento</button>
+    </div>
+
+
+    <!-- HOW TO INSTALL -->
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;max-width:260px;text-align:left">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px"><rect x="5" y="2" width="14" height="20" rx="2" fill="#1E3228"/><circle cx="12" cy="17" r="1.2" fill="#34D399"/></svg>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--green);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px">Android · Chrome</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.5">Tocá los tres puntos <strong style="color:var(--text)">⋮</strong> → <strong style="color:var(--text)">Añadir a pantalla de inicio</strong></div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;max-width:260px;text-align:left">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px"><rect x="5" y="2" width="14" height="20" rx="2" fill="#1E3228"/><circle cx="12" cy="17" r="1.2" fill="#34D399"/></svg>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--green);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px">iOS · Safari</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.5">Tocá compartir <strong style="color:var(--text)">↑</strong> → bajá y tocá <strong style="color:var(--text)">Añadir a pantalla de inicio</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAGLINE SELECTOR -->
+    <div class="tagline-selector">
+      <div class="tagline-selector-label">✦ Elegí la frase que más te convenza</div>
+      <div class="tagline-options" id="tagline-opts">
+        <div class="tagline-opt" data-headline='Menos <span class="highlight">grupos de chat</span>,<br>más viaje' data-sub="Together reúne itinerario, gastos, votaciones y tareas en un solo lugar para que tu grupo viaje sin el caos habitual.">
+          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
+          <span>Menos grupos de chat, más viaje</span>
+        </div>
+        <div class="tagline-opt" data-headline='El viaje grupal,<br><span class="highlight">finalmente organizado</span>' data-sub="Itinerario colaborativo, gastos compartidos, votaciones y tareas. Todo en una app, todo en el mismo lugar.">
+          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
+          <span>El viaje grupal, finalmente organizado</span>
+        </div>
+        <div class="tagline-opt" data-headline='Organizá el viaje.<br><span class="highlight">Viví la aventura.</span>' data-sub="Dejá el caos de los grupos y las planillas atrás. Together hace que organizar un viaje grupal sea tan fácil como vivirlo.">
+          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
+          <span>Organizá el viaje. Viví la aventura.</span>
+        </div>
+        <div class="tagline-opt active" data-headline='<span style="display:inline-block;vertical-align:middle;margin-right:2px;margin-bottom:12px"><svg width="1.6em" height="1.6em" viewBox="0 0 100 100" fill="none"><path d="M 50 95 C 50 95 8 60 8 38 A 42 42 0 1 1 92 38 C 92 60 50 95 50 95 Z" fill="#34D399"/><line x1="19.5" y1="25.5" x2="80.5" y2="25.5" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><line x1="19.5" y1="25.5" x2="50" y2="68" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><line x1="80.5" y1="25.5" x2="50" y2="68" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><rect x="19.5" y="22" width="61" height="10.5" rx="5.2" fill="#fff"/><rect x="44.8" y="22" width="10.4" height="46" rx="5.2" fill="#fff"/><circle cx="19.5" cy="25.5" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="19.5" cy="25.5" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="19.5" cy="25.5" r="6.5" fill="#10B981"/><circle cx="80.5" cy="25.5" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="80.5" cy="25.5" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="80.5" cy="25.5" r="6.5" fill="#10B981"/><circle cx="50" cy="68" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="50" cy="68" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="50" cy="68" r="6.5" fill="#10B981"/></svg></span>odo tu grupo.<br><span class="highlight">Un solo lugar.</span>' data-sub="Ninguna app reunía itinerario, gastos, votaciones y documentos para viajes grupales. Hasta ahora.">
+          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
+          <span>Todo tu grupo. Un solo lugar.</span>
+        </div>
+        <div class="tagline-opt" data-headline='Del caos del chat<br>a la <span class="highlight">aventura perfecta</span>' data-sub="Together es la app que tu grupo necesitaba: planificación, gastos y decisiones en un solo lugar, sin el lío de siempre.">
+          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
+          <span>Del caos del chat a la aventura perfecta</span>
+        </div>
+        <div class="tagline-opt" data-headline='Planificá, gastá y viví<br>tus viajes <span class="highlight">sin dramas</span>' data-sub="Together combina todo lo que tu grupo necesita para organizar un viaje: itinerario, gastos, votaciones, tareas y documentos.">
+          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
+          <span>Planificá, gastá y viví tus viajes sin dramas</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-section">
+  <div class="problem-inner">
+    <span class="problem-emoji">😩</span>
+    <h2 class="problem-title">Organizar un viaje grupal<br>no debería ser tan difícil</h2>
+    <p class="problem-text">Pero todos sabemos cómo termina: el chat explota, nadie sabe cuánto le debe a quién, y tres personas quieren ir a lugares distintos.</p>
+    <div class="pain-list">
+      <div class="pain-item">
+        <span class="pain-x">✕</span>
+        <span>Mensajes perdidos entre 300 fotos de memes en el grupo de WhatsApp</span>
+      </div>
+      <div class="pain-item">
+        <span class="pain-x">✕</span>
+        <span>Planillas de Excel que nadie actualiza y todos editan al mismo tiempo</span>
+      </div>
+      <div class="pain-item">
+        <span class="pain-x">✕</span>
+        <span>Deudas que nunca quedan claras y amistades que tambalean</span>
+      </div>
+      <div class="pain-item">
+        <span class="pain-x">✕</span>
+        <span>Decisiones que se toman "a medias" porque no había forma de votar</span>
+      </div>
+    </div>
+    <p class="problem-text" style="color: var(--green); font-weight: 600;">Together resuelve todo eso en un solo lugar.</p>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="funcionalidades">
+  <div class="section-label">Funcionalidades</div>
+  <h2 class="section-title">Todo lo que tu grupo necesita</h2>
+  <p class="section-sub">Cinco herramientas, una sola app. Sin saltar entre apps ni perder información.</p>
+  <div class="features-grid">
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <h3>Itinerario colaborativo</h3>
+      <p>Agregá lugares, restaurantes, vuelos y hoteles. Todos ven el plan en tiempo real, sin planillas.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <h3>Gastos compartidos</h3>
+      <p>Registrá cada gasto, Together calcula quién le debe cuánto a quién y minimiza los pagos.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <h3>Votaciones</h3>
+      <p>¿Hotel A o hotel B? Creá una votación, todos eligen y el resultado es claro. Sin discusiones.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <h3>Documentos del viaje</h3>
+      <p>Vuelos, reservas, seguros y más. Todos los archivos importantes en un solo lugar.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Tareas para el grupo</h3>
+      <p>Asigná responsabilidades: quién consigue el auto, quién reserva, quién trae el equipo.</p>
+    </div>
+
+    <div class="feature-card" style="background: rgba(5,150,105,0.08); border-color: rgba(52,211,153,0.2);">
+      <div class="feature-icon" style="background: rgba(52,211,153,0.15);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3 style="color: var(--green);">Sin costo · Sin registros obligatorios</h3>
+      <p>Together es gratis para empezar. Instalala en segundos como app en tu teléfono.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- EMAIL + INSTALL -->
+<section class="email-section" id="avisar">
+  <div class="email-card">
+    <h2 class="email-title">¿Querés ser de los primeros?</h2>
+    <p class="email-sub">Dejá tu email y te avisamos cuando lancemos la versión completa con novedades exclusivas.</p>
+    <form class="email-form" id="email-form">
+      <input type="email" class="email-input" name="email" placeholder="tu@email.com" id="email-input" required/>
+      <button type="submit" class="email-btn" id="email-btn">Anotarme</button>
+    </form>
+    <p class="email-note" id="email-note">Sin spam. Te escribimos solo cuando vale la pena.</p>
+    <div style="margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border);">
+      <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px;">¿O preferís probarla ahora mismo?</p>
+      <a href="https://together-app-sandy.vercel.app/" target="_blank" rel="noopener" class="btn-primary" id="instalar" style="display: inline-flex;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Instalar Together — es gratis
+      </a>
+      <p style="color: var(--muted); font-size: 12px; margin-top: 10px;">Disponible en Android e iOS · No requiere descarga de tienda</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Together ✈️</div>
+  <div class="footer-text">Hecho con ☕ para los que viajan en grupo</div>
+</footer>
+
+<script>
+  const opts = document.querySelectorAll('.tagline-opt');
+  const headline = document.getElementById('hero-headline');
+  const sub = document.getElementById('hero-sub');
+
+  opts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      opts.forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      headline.style.opacity = '0';
+      setTimeout(() => {
+        headline.innerHTML = opt.dataset.headline;
+        sub.textContent = opt.dataset.sub;
+        headline.style.opacity = '1';
+      }, 180);
+    });
+  });
+
+  const form = document.getElementById('email-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const input = document.getElementById('email-input');
+    const note = document.getElementById('email-note');
+    const btn = document.getElementById('email-btn');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/mnjwlawn', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: input.value })
+      });
+      if (res.ok) {
+        note.textContent = '✓ ¡Listo! Te avisamos cuando lancemos.';
+        note.style.color = '#34D399';
+        input.value = '';
+        input.disabled = true;
+        btn.textContent = '¡Anotado!';
+      } else {
+        throw new Error();
+      }
+    } catch {
+      note.textContent = 'Algo salió mal. Intentá de nuevo.';
+      note.style.color = '#ff6b6b';
+      btn.textContent = 'Anotarme';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
