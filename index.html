@@ -154,57 +154,6 @@
     }
     .btn-secondary:hover { border-color: var(--muted); background: rgba(255,255,255,0.04); transform: translateY(-1px); }
 
-    /* TAGLINE SELECTOR — para elegir la frase */
-    .tagline-selector {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px 24px;
-      max-width: 680px;
-      margin: 0 auto;
-      text-align: left;
-    }
-    .tagline-selector-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-    .tagline-options {
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .tagline-opt {
-      display: flex; align-items: center; gap: 12px;
-      padding: 11px 14px;
-      border-radius: 10px;
-      border: 1.5px solid transparent;
-      cursor: pointer;
-      transition: border-color 0.18s, background 0.18s;
-      font-size: 15px;
-      color: var(--text2);
-    }
-    .tagline-opt:hover { background: rgba(5,150,105,0.07); color: var(--text); }
-    .tagline-opt.active {
-      border-color: var(--accent);
-      background: rgba(5,150,105,0.1);
-      color: var(--text);
-    }
-    .tagline-radio {
-      width: 16px; height: 16px; flex-shrink: 0;
-      border-radius: 50%; border: 2px solid var(--muted);
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color 0.18s;
-    }
-    .tagline-opt.active .tagline-radio { border-color: var(--accent); }
-    .tagline-radio-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--accent);
-      opacity: 0; transition: opacity 0.18s;
-    }
-    .tagline-opt.active .tagline-radio-dot { opacity: 1; }
-
     /* FEATURES */
     .section { padding: 96px 5%; }
     .section-label {
@@ -258,9 +207,6 @@
     }
     .problem-inner {
       max-width: 760px; margin: 0 auto; text-align: center;
-    }
-    .problem-emoji {
-      font-size: 48px; margin-bottom: 24px; display: block;
     }
     .problem-title {
       font-family: 'Syne', sans-serif;
@@ -412,45 +358,12 @@
         </div>
       </div>
     </div>
-
-    <!-- TAGLINE SELECTOR -->
-    <div class="tagline-selector">
-      <div class="tagline-selector-label">✦ Elegí la frase que más te convenza</div>
-      <div class="tagline-options" id="tagline-opts">
-        <div class="tagline-opt" data-headline='Menos <span class="highlight">grupos de chat</span>,<br>más viaje' data-sub="Together reúne itinerario, gastos, votaciones y tareas en un solo lugar para que tu grupo viaje sin el caos habitual.">
-          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
-          <span>Menos grupos de chat, más viaje</span>
-        </div>
-        <div class="tagline-opt" data-headline='El viaje grupal,<br><span class="highlight">finalmente organizado</span>' data-sub="Itinerario colaborativo, gastos compartidos, votaciones y tareas. Todo en una app, todo en el mismo lugar.">
-          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
-          <span>El viaje grupal, finalmente organizado</span>
-        </div>
-        <div class="tagline-opt" data-headline='Organizá el viaje.<br><span class="highlight">Viví la aventura.</span>' data-sub="Dejá el caos de los grupos y las planillas atrás. Together hace que organizar un viaje grupal sea tan fácil como vivirlo.">
-          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
-          <span>Organizá el viaje. Viví la aventura.</span>
-        </div>
-        <div class="tagline-opt active" data-headline='<span style="display:inline-block;vertical-align:middle;margin-right:2px;margin-bottom:12px"><svg width="1.6em" height="1.6em" viewBox="0 0 100 100" fill="none"><path d="M 50 95 C 50 95 8 60 8 38 A 42 42 0 1 1 92 38 C 92 60 50 95 50 95 Z" fill="#34D399"/><line x1="19.5" y1="25.5" x2="80.5" y2="25.5" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><line x1="19.5" y1="25.5" x2="50" y2="68" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><line x1="80.5" y1="25.5" x2="50" y2="68" stroke="#10B981" stroke-width="2" opacity="0.3" stroke-linecap="round"/><rect x="19.5" y="22" width="61" height="10.5" rx="5.2" fill="#fff"/><rect x="44.8" y="22" width="10.4" height="46" rx="5.2" fill="#fff"/><circle cx="19.5" cy="25.5" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="19.5" cy="25.5" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="19.5" cy="25.5" r="6.5" fill="#10B981"/><circle cx="80.5" cy="25.5" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="80.5" cy="25.5" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="80.5" cy="25.5" r="6.5" fill="#10B981"/><circle cx="50" cy="68" r="12.35" fill="#10B981" opacity="0.12"/><circle cx="50" cy="68" r="8.45" fill="#10B981" opacity="0.22"/><circle cx="50" cy="68" r="6.5" fill="#10B981"/></svg></span>odo tu grupo.<br><span class="highlight">Un solo lugar.</span>' data-sub="Ninguna app reunía itinerario, gastos, votaciones y documentos para viajes grupales. Hasta ahora.">
-          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
-          <span>Todo tu grupo. Un solo lugar.</span>
-        </div>
-        <div class="tagline-opt" data-headline='Del caos del chat<br>a la <span class="highlight">aventura perfecta</span>' data-sub="Together es la app que tu grupo necesitaba: planificación, gastos y decisiones en un solo lugar, sin el lío de siempre.">
-          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
-          <span>Del caos del chat a la aventura perfecta</span>
-        </div>
-        <div class="tagline-opt" data-headline='Planificá, gastá y viví<br>tus viajes <span class="highlight">sin dramas</span>' data-sub="Together combina todo lo que tu grupo necesita para organizar un viaje: itinerario, gastos, votaciones, tareas y documentos.">
-          <div class="tagline-radio"><div class="tagline-radio-dot"></div></div>
-          <span>Planificá, gastá y viví tus viajes sin dramas</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
+</div>
 </section>
 
 <!-- PROBLEM -->
 <section class="problem-section">
   <div class="problem-inner">
-    <span class="problem-emoji">😩</span>
     <h2 class="problem-title">Organizar un viaje grupal<br>no debería ser tan difícil</h2>
     <p class="problem-text">Pero todos sabemos cómo termina: el chat explota, nadie sabe cuánto le debe a quién, y tres personas quieren ir a lugares distintos.</p>
     <div class="pain-list">
@@ -561,21 +474,6 @@
 </footer>
 
 <script>
-  const opts = document.querySelectorAll('.tagline-opt');
-  const headline = document.getElementById('hero-headline');
-  const sub = document.getElementById('hero-sub');
-
-  opts.forEach(opt => {
-    opt.addEventListener('click', () => {
-      opts.forEach(o => o.classList.remove('active'));
-      opt.classList.add('active');
-      headline.style.opacity = '0';
-      setTimeout(() => {
-        headline.innerHTML = opt.dataset.headline;
-        sub.textContent = opt.dataset.sub;
-        headline.style.opacity = '1';
-      }, 180);
-    });
   });
 
   const form = document.getElementById('email-form');
