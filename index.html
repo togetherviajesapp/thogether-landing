@@ -340,6 +340,8 @@
       footer { justify-content: center; text-align: center; }
     }
   </style>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function(){ emailjs.init("NcqmTBQZpNQebMtgw"); });</script>
 </head>
 <body>
 
@@ -538,20 +540,22 @@
     btn.textContent = 'Enviando...';
     btn.disabled = true;
     try {
+      // Enviar a Formspree (lista de espera)
       const res = await fetch('https://formspree.io/f/mnjwlawn', {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: input.value })
       });
-      if (res.ok) {
-        note.textContent = '✓ ¡Listo! Te avisamos cuando lancemos.';
-        note.style.color = '#34D399';
-        input.value = '';
-        input.disabled = true;
-        btn.textContent = '¡Anotado!';
-      } else {
-        throw new Error();
-      }
+      if (!res.ok) throw new Error();
+      // Enviar auto-reply via EmailJS
+      await emailjs.send('service_p21lssh', 'template_7qf9ryi', {
+        email: input.value
+      });
+      note.textContent = '✓ ¡Listo! Te avisamos cuando lancemos.';
+      note.style.color = '#34D399';
+      input.value = '';
+      input.disabled = true;
+      btn.textContent = '¡Anotado!';
     } catch {
       note.textContent = 'Algo salió mal. Intentá de nuevo.';
       note.style.color = '#ff6b6b';
